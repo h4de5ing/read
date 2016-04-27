@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/bottomBarHome"
+        android:icon="@drawable/ic_home_white_24dp"
+        android:title="Home"/>
+    <item
+        android:id="@+id/bottomBarTools"
+        android:icon="@drawable/ic_dialpad_white_24dp"
+        android:title="Tools"/>
+    <item
+        android:id="@+id/bottomBarAbout"
+        android:icon="@drawable/ic_info_outline_white_24dp"
+        android:title="About"/>
+</menu>
