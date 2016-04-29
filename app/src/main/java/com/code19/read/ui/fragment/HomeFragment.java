@@ -1,4 +1,4 @@
-package com.code19.read.ui.gragment;
+package com.code19.read.ui.fragment;
 
 import android.content.Context;
 import android.os.Bundle;

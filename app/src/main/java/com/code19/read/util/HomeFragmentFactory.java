@@ -3,11 +3,11 @@ package com.code19.read.util;
 import android.support.v4.app.Fragment;
 import android.util.SparseArray;
 
-import com.code19.read.ui.gragment.KejiFragment;
-import com.code19.read.ui.gragment.MeinvFragment;
-import com.code19.read.ui.gragment.NewtopFragment;
-import com.code19.read.ui.gragment.QiwenFragment;
-import com.code19.read.ui.gragment.TiyuFragment;
+import com.code19.read.ui.fragment.KejiFragment;
+import com.code19.read.ui.fragment.MeinvFragment;
+import com.code19.read.ui.fragment.NewtopFragment;
+import com.code19.read.ui.fragment.QiwenFragment;
+import com.code19.read.ui.fragment.TiyuFragment;
 
 /**
  * Created by Gh0st on 2016/4/27 027.

@@ -4,6 +4,7 @@ package com.code19.read;
  * Created by Gh0st on 2016/4/26 026.
  */
 public class ApiConfig {
+    public static String URL = "http://api.huceo.com";
     //http://apistore.baidu.com/apiworks/servicedetail/1061.html 科技新闻
     //http://apistore.baidu.com/apiworks/servicedetail/711.html  体育新闻
     //http://apistore.baidu.com/apiworks/servicedetail/768.html 娱乐花边

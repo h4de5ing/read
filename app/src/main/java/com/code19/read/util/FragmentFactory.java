@@ -3,9 +3,9 @@ package com.code19.read.util;
 import android.support.v4.app.Fragment;
 import android.util.SparseArray;
 
-import com.code19.read.ui.gragment.AboutFragment;
-import com.code19.read.ui.gragment.HomeFragment;
-import com.code19.read.ui.gragment.ToolsFragment;
+import com.code19.read.ui.fragment.AboutFragment;
+import com.code19.read.ui.fragment.HomeFragment;
+import com.code19.read.ui.fragment.ToolsFragment;
 
 /**
  * Created by Gh0st on 2016/4/26 026.
