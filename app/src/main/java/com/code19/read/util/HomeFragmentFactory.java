@@ -41,7 +41,4 @@ public class HomeFragmentFactory {
         return fragment;
     }
 
-    public static int getFragmentCount() {
-        return map.size();
-    }
 }

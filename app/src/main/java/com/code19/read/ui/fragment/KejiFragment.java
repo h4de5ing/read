@@ -83,7 +83,7 @@ public class KejiFragment extends Fragment implements INewsView {
 
     @Override
     public void hideLoading() {
-        mDialog.dismiss();
+        mDialog.cancel();
     }
 
     @Override

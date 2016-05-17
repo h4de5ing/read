@@ -32,9 +32,4 @@ public class FragmentFactory {
         map.put(position, fragment);
         return fragment;
     }
-
-    public static int getFragmentCount() {
-        return map.size();
-    }
-
 }

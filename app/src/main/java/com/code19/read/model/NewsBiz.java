@@ -2,6 +2,7 @@ package com.code19.read.model;
 
 import android.support.annotation.Nullable;
 
+import com.code19.read.util.CacheUtils;
 import com.google.gson.Gson;
 import com.lzy.okhttputils.OkHttpUtils;
 import com.lzy.okhttputils.cache.CacheMode;
@@ -21,18 +22,25 @@ public class NewsBiz implements INewsBiz {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                OkHttpUtils.get(uri)
-                        .tag(this)
-                        .cacheKey(url)
-                        .cacheMode(CacheMode.REQUEST_FAILED_READ_CACHE)
-                        .execute(new StringCallback() {
-                            @Override
-                            public void onResponse(boolean isFromCache, String s, Request request, @Nullable Response response) {
-                                Gson gson = new Gson();
-                                NewModel n = gson.fromJson(s, NewModel.class);
-                                onLoadListener.loadSuccess(n);
-                            }
-                        });
+                if ("".equals(CacheUtils.getCache(uri))) { //缓存为空就从网络加载
+                    OkHttpUtils.get(uri)
+                            .tag(this)
+                            .cacheKey(url)
+                            .cacheMode(CacheMode.REQUEST_FAILED_READ_CACHE)
+                            .execute(new StringCallback() {
+                                @Override
+                                public void onResponse(boolean isFromCache, String s, Request request, @Nullable Response response) {
+                                    Gson gson = new Gson();
+                                    NewModel n = gson.fromJson(s, NewModel.class);
+                                    CacheUtils.setCache(uri, s);  //设置缓存
+                                    onLoadListener.loadSuccess(n);
+                                }
+                            });
+                } else { //缓存不为空就从本地加载
+                    Gson gson = new Gson();
+                    NewModel n = gson.fromJson(CacheUtils.getCache(uri), NewModel.class);
+                    onLoadListener.loadSuccess(n);
+                }
             }
         }).start();
     }
