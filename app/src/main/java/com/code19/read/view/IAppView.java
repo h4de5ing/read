@@ -1,6 +1,6 @@
 package com.code19.read.view;
 
-import com.code19.read.model.AppModel;
+import com.code19.read.domain.AppModel;
 
 import java.util.List;
 
@@ -9,7 +9,6 @@ import java.util.List;
  */
 public interface IAppView {
     void showLoading();
-
     void hideLoading();
     void referData(List<AppModel> list);
 

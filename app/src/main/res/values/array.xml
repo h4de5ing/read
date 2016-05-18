@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="home_title">
-        <item>科技</item>
-        <item>体育</item>
-        <item>娱乐</item>
-        <item>奇闻</item>
+        <item>新闻</item>
+        <item>日报</item>
+        <item>弹幕</item>
         <item>美女</item>
+        <item>工具</item>
+        <item>关于</item>
     </string-array>
 </resources>

@@ -1,6 +1,7 @@
 package com.code19.read.util;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.code19.read.App;
 
@@ -17,8 +18,9 @@ public class CacheUtils {
      * @param strCache 加载到的网络请求结果为缓存内容
      */
     public static void setCache(String key, String strCache) {
+        //TODO 设置缓存过期时间 缓存大小
         String encodeName = Md5Utils.encode(key);
-        //Log.i("ghost", "setCache:key:" + encodeName + ",strCache:" + strCache);
+        Log.i("ghost", "setCache:key:" + encodeName + ",strCache:" + strCache);
         boolean isCacheSuccess = FileUtils.writeFile(mContext.getExternalCacheDir() + "/" + encodeName, strCache);
         //Toast.makeText(mContext, isCacheSuccess ? "缓存成功" : "缓存失败", Toast.LENGTH_SHORT).show();
     }

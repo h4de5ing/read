@@ -4,10 +4,11 @@ package com.code19.read;
  * Created by Gh0st on 2016/4/26 026.
  */
 public class ApiConfig {
-    public static String URL = "http://api.huceo.com";
-    //http://apistore.baidu.com/apiworks/servicedetail/1061.html 科技新闻
-    //http://apistore.baidu.com/apiworks/servicedetail/711.html  体育新闻
-    //http://apistore.baidu.com/apiworks/servicedetail/768.html 娱乐花边
-    //http://apistore.baidu.com/apiworks/servicedetail/633.html 奇闻趣事
-    //http://apistore.baidu.com/apiworks/servicedetail/720.html 美女图片
+    public static String NewsURL = "http://api.huceo.com";
+    //知乎日报获取最新消息
+    public static String ZhihuDiailyURL = "http://news-at.zhihu.com/api/4/news/latest";
+    //知乎日报内容
+    public static String ZhihuDialyNewUrl = "http://news-at.zhihu.com/api/4/news";
+    //知乎日报splash界面中的背景和文本
+    public static String ZhihuSplashURL = "http://news-at.zhihu.com/api/4/start-image/1080*1776";
 }

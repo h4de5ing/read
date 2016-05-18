@@ -9,7 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.code19.read.R;
-import com.code19.read.model.AppModel;
+import com.code19.read.domain.AppModel;
+import com.code19.read.util.FileUtils;
 
 import java.util.List;
 
@@ -18,12 +19,12 @@ import java.util.List;
  */
 public class ToolsRecyAdapter extends RecyclerView.Adapter<ToolsRecyAdapter.ToolsViewHolder> {
     private LayoutInflater mLayoutInflater;
-    private Context mContext;
     private List<AppModel> mDatas;
+    private Context mContext;
 
     public ToolsRecyAdapter(Context context, List<AppModel> list) {
-        mLayoutInflater = LayoutInflater.from(mContext);
         mContext = context;
+        mLayoutInflater = LayoutInflater.from(context);
         mDatas = list;
     }
 
@@ -57,6 +58,12 @@ public class ToolsRecyAdapter extends RecyclerView.Adapter<ToolsRecyAdapter.Tool
             iv_appIcon = (ImageView) itemView.findViewById(R.id.recy_app_icon);
             tv_appSize = (TextView) itemView.findViewById(R.id.recy_app_size);
             tv_appDate = (TextView) itemView.findViewById(R.id.recy_app_date);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    FileUtils.shareFile(mContext, mDatas.get(getAdapterPosition()).getAppApk());
+                }
+            });
         }
     }
 }

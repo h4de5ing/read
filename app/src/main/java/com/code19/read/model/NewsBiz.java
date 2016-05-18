@@ -1,9 +1,9 @@
 package com.code19.read.model;
 
 import android.support.annotation.Nullable;
-import android.widget.Toast;
 
 import com.code19.read.App;
+import com.code19.read.domain.NewModel;
 import com.code19.read.util.CacheUtils;
 import com.code19.read.util.NetUtils;
 import com.google.gson.Gson;
@@ -46,8 +46,7 @@ public class NewsBiz implements INewsBiz {
                         onLoadListener.loadSuccess(n);
                     }
                 } else {
-                    onLoadListener.loadFailed();
-                    Toast.makeText(App.getContext(), "请检查网络连接", Toast.LENGTH_SHORT).show();
+                    onLoadListener.loadFailed("请检查网络连接");
                 }
             }
 

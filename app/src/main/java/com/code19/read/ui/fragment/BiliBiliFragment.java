@@ -11,14 +11,14 @@ import android.widget.TextView;
 /**
  * Created by Gh0st on 2016/4/27 027.
  */
-public class QiwenFragment extends Fragment {
+public class BiliBiliFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         TextView tv = new TextView(getActivity());
         tv.setTextSize(20);
-        tv.setText("奇闻");
+        tv.setText("比例比例");
         return tv;
     }
 }

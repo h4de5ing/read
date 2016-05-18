@@ -3,11 +3,12 @@ package com.code19.read.util;
 import android.support.v4.app.Fragment;
 import android.util.SparseArray;
 
-import com.code19.read.ui.fragment.KejiFragment;
+import com.code19.read.ui.fragment.AboutFragment;
+import com.code19.read.ui.fragment.NewsFragment;
 import com.code19.read.ui.fragment.MeinvFragment;
-import com.code19.read.ui.fragment.NewtopFragment;
-import com.code19.read.ui.fragment.QiwenFragment;
-import com.code19.read.ui.fragment.TiyuFragment;
+import com.code19.read.ui.fragment.BiliBiliFragment;
+import com.code19.read.ui.fragment.ZhihuDailyFragment;
+import com.code19.read.ui.fragment.ToolsFragment;
 
 /**
  * Created by Gh0st on 2016/4/27 027.
@@ -22,19 +23,22 @@ public class HomeFragmentFactory {
         }
         switch (position) {
             case 0:
-                fragment = new KejiFragment();
+                fragment = new NewsFragment();
                 break;
             case 1:
-                fragment = new TiyuFragment();
+                fragment = new ZhihuDailyFragment();
                 break;
             case 2:
-                fragment = new NewtopFragment();
+                fragment = new BiliBiliFragment();
                 break;
             case 3:
-                fragment = new QiwenFragment();
+                fragment = new MeinvFragment();
                 break;
             case 4:
-                fragment = new MeinvFragment();
+                fragment = new ToolsFragment();
+                break;
+            case 5:
+                fragment = new AboutFragment();
                 break;
         }
         map.put(position, fragment);

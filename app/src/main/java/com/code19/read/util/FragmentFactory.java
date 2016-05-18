@@ -5,6 +5,9 @@ import android.util.SparseArray;
 
 import com.code19.read.ui.fragment.AboutFragment;
 import com.code19.read.ui.fragment.HomeFragment;
+import com.code19.read.ui.fragment.NewsFragment;
+import com.code19.read.ui.fragment.BiliBiliFragment;
+import com.code19.read.ui.fragment.ZhihuDailyFragment;
 import com.code19.read.ui.fragment.ToolsFragment;
 
 /**
@@ -27,6 +30,15 @@ public class FragmentFactory {
                 break;
             case 2:
                 fragment = new AboutFragment();
+                break;
+            case 3:
+                fragment = new NewsFragment();
+                break;
+            case 4:
+                fragment = new ZhihuDailyFragment();
+                break;
+            case 5:
+                fragment = new BiliBiliFragment();
                 break;
         }
         map.put(position, fragment);

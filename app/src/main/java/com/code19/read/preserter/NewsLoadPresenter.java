@@ -3,7 +3,7 @@ package com.code19.read.preserter;
 import android.os.Handler;
 
 import com.code19.read.model.INewsBiz;
-import com.code19.read.model.NewModel;
+import com.code19.read.domain.NewModel;
 import com.code19.read.model.NewsBiz;
 import com.code19.read.model.OnLoadListener;
 import com.code19.read.view.INewsView;
@@ -14,11 +14,12 @@ import com.code19.read.view.INewsView;
 public class NewsLoadPresenter {
     private INewsBiz mINewsBiz;
     private INewsView mINewsView;
-    private Handler mHandler = new Handler();
+    private Handler mHandler;
 
     public NewsLoadPresenter(INewsView iNewsView) {
         this.mINewsView = iNewsView;
         this.mINewsBiz = new NewsBiz();
+        this.mHandler = new Handler();
     }
 
     public void getData() {
@@ -40,11 +41,11 @@ public class NewsLoadPresenter {
             }
 
             @Override
-            public void loadFailed() {
+            public void loadFailed(final String tips) {
                 mHandler.post(new Runnable() {
                     @Override
                     public void run() {
-                        mINewsView.showFailedError();
+                        mINewsView.showFailedError(tips);
                         mINewsView.hideLoading();
                     }
                 });

@@ -1,4 +1,4 @@
-package com.code19.read.model;
+package com.code19.read.domain;
 
 import android.graphics.drawable.Drawable;
 
@@ -10,6 +10,7 @@ public class AppModel {
     private String appName;
     private String appSize;
     private String appDate;
+    private String appApk;
 
     public Drawable getAppIcon() {
         return icon;
@@ -41,5 +42,13 @@ public class AppModel {
 
     public void setAppDate(String appDate) {
         this.appDate = appDate;
+    }
+
+    public String getAppApk() {
+        return appApk;
+    }
+
+    public void setAppApk(String appApk) {
+        this.appApk = appApk;
     }
 }

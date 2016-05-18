@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.code19.read.R;
-import com.code19.read.model.NewModel;
+import com.code19.read.domain.NewModel;
 
 import java.util.List;
 

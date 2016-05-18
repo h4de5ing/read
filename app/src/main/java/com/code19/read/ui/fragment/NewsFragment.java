@@ -4,15 +4,20 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.code19.read.ApiConfig;
 import com.code19.read.R;
-import com.code19.read.model.NewModel;
+import com.code19.read.domain.NewModel;
 import com.code19.read.preserter.NewsLoadPresenter;
 import com.code19.read.ui.adapter.NewsListAdapter;
 import com.code19.read.view.INewsView;
@@ -23,7 +28,7 @@ import java.util.List;
 /**
  * Created by Gh0st on 2016/4/27 027.
  */
-public class KejiFragment extends Fragment implements INewsView {
+public class NewsFragment extends Fragment implements INewsView {
     private NewsLoadPresenter mNewsLoadPresenter;
     private List<NewModel.NewslistEntity> mData;
     private NewsListAdapter mAdapter;
@@ -35,7 +40,6 @@ public class KejiFragment extends Fragment implements INewsView {
         initProgress();
         mData = new ArrayList<NewModel.NewslistEntity>();
         mNewsLoadPresenter = new NewsLoadPresenter(this);
-        mNewsLoadPresenter.getData();
     }
 
     private void initProgress() {
@@ -46,38 +50,63 @@ public class KejiFragment extends Fragment implements INewsView {
         mDialog.setMessage("正在加载数据");
     }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            //相当于Fragment的onResume
+            mNewsLoadPresenter.getData();
+        } else {
+            //相当于Fragment的onPause
+        }
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         /*if (Looper.myLooper() == Looper.getMainLooper()) {
             Log.w("ghost", "在主线程中执行");
         }*/
-        View v = inflater.inflate(R.layout.fragment_keji, null);
-        ListView kejiListView = (ListView) v.findViewById(R.id.keji_listview);
+        View v = inflater.inflate(R.layout.fragment_news, null);
+        ListView newsListView = (ListView) v.findViewById(R.id.listview_news);
+        newsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+                Log.i("ghost", "点击:" + position);
+                WebView webView = new WebView(getActivity());
+                webView.setWebViewClient(new WebViewClient() {
+                    @Override
+                    public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                        view.loadUrl(mData.get(position).getUrl());
+                        return true;
+                    }
+                });
+            }
+        });
         mAdapter = new NewsListAdapter(getActivity(), mData);
-        kejiListView.setAdapter(mAdapter);
+        newsListView.setAdapter(mAdapter);
         return v;
     }
 
 
     @Override
     public String getUrl() {
-        return ApiConfig.URL;
+        return ApiConfig.NewsURL;
     }
 
     @Override
     public String getKeyWorld() {
-        return "tiyu";
+        return "tiyu"; //加载体育新闻
     }
 
     @Override
     public int getNum() {
-        return 20;
+        return 20;  //一次加载20条数据
     }
 
     @Override
     public int getPage() {
-        return 1;
+        return 1; //默认加载第一页数据
     }
 
     @Override
@@ -99,8 +128,8 @@ public class KejiFragment extends Fragment implements INewsView {
     }
 
     @Override
-    public void showFailedError() {
-
+    public void showFailedError(String tips) {
+        Toast.makeText(getActivity(), tips, Toast.LENGTH_SHORT).show();
     }
 
     @Override

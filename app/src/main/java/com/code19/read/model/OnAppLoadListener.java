@@ -1,5 +1,7 @@
 package com.code19.read.model;
 
+import com.code19.read.domain.AppModel;
+
 import java.util.List;
 
 /**

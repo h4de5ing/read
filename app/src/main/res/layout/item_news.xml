@@ -4,7 +4,11 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:gravity="center"
-              android:orientation="horizontal">
+              android:orientation="horizontal"
+              android:paddingBottom="3dp"
+              android:paddingLeft="3dp"
+              android:paddingRight="3dp"
+              android:paddingTop="3dp">
 
     <ImageButton
         android:id="@+id/news_item_pic"

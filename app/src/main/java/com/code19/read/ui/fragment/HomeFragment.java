@@ -19,7 +19,6 @@ import com.code19.read.ui.adapter.HomeAdapter;
  */
 public class HomeFragment extends Fragment {
     private MainActivity mMainActivity;
-    private static final String TAG = "ghost";
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

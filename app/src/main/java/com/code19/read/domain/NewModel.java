@@ -1,4 +1,4 @@
-package com.code19.read.model;
+package com.code19.read.domain;
 
 import java.io.Serializable;
 import java.util.List;
