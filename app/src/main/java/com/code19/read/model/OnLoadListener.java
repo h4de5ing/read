@@ -6,5 +6,7 @@ package com.code19.read.model;
 public interface OnLoadListener {
     void loadSuccess(NewModel newModel);
 
+    void loadProgress();
+
     void loadFailed();
 }

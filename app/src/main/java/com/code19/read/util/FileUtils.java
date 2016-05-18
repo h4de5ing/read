@@ -1,5 +1,8 @@
 package com.code19.read.util;
 
+import android.content.Context;
+import android.text.format.Formatter;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -67,6 +70,17 @@ public class FileUtils {
             }
         }
         return str;
+    }
+
+    /**
+     * 格式化文件大小
+     *
+     * @param context
+     * @param size
+     * @return
+     */
+    public static String formatFileSize(Context context, long size) {
+        return Formatter.formatFileSize(context, size);
     }
 
 

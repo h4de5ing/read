@@ -32,20 +32,24 @@ public class KejiFragment extends Fragment implements INewsView {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mDialog = new ProgressDialog(getActivity());
-        mDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        mDialog.setCanceledOnTouchOutside(false);
-        mDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        mDialog.setMessage("正在加载数据");
+        initProgress();
         mData = new ArrayList<NewModel.NewslistEntity>();
         mNewsLoadPresenter = new NewsLoadPresenter(this);
         mNewsLoadPresenter.getData();
     }
 
+    private void initProgress() {
+        mDialog = new ProgressDialog(getActivity());
+        mDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        mDialog.setCanceledOnTouchOutside(false);
+        mDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        mDialog.setMessage("正在加载数据");
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-/*        if (Looper.myLooper() == Looper.getMainLooper()) {
+        /*if (Looper.myLooper() == Looper.getMainLooper()) {
             Log.w("ghost", "在主线程中执行");
         }*/
         View v = inflater.inflate(R.layout.fragment_keji, null);
