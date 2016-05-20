@@ -32,7 +32,6 @@ public class AppManagerActivity extends AppCompatActivity implements IAppView {
         setContentView(R.layout.activity_appmanager);
         initProgress(); //初始化加载进度条
         mAppLoadPresenter = new AppLoadPresenter(this);
-        //mDialog.show();
         mAppLoadPresenter.getData();//异步加载数据
         mTools_list = (RecyclerView) findViewById(R.id.recy_tools_list);
         mTools_list.setLayoutManager(new GridLayoutManager(this, 2));
@@ -43,8 +42,7 @@ public class AppManagerActivity extends AppCompatActivity implements IAppView {
         mDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         mDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         mDialog.setCanceledOnTouchOutside(false);
-        mDialog.setMessage("正在加载...");
-        mDialog.show();
+        mDialog.setMessage(getString(R.string.loading));
     }
 
     @Override

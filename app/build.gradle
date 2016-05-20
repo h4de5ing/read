@@ -28,4 +28,5 @@ dependencies {
     compile 'com.lzy.net:okhttputils:1.5.0'    // https://github.com/jeasonlzy0216/OkHttpUtils 2016.05.16 update
     compile 'com.android.support:recyclerview-v7:23.3.0'
     compile 'com.android.support:design:23.3.0'
+    compile 'com.squareup.picasso:picasso:2.5.2'
 }

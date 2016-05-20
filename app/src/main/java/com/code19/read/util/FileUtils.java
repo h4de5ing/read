@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.text.format.Formatter;
+import android.util.DisplayMetrics;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -152,6 +153,15 @@ public class FileUtils {
                 e.printStackTrace();
             }
         }
+    }
 
+    public static int getScreenW(Context aty) {
+        DisplayMetrics dm = aty.getResources().getDisplayMetrics();
+        return dm.widthPixels;
+    }
+
+    public static int getScreenH(Context aty) {
+        DisplayMetrics dm = aty.getResources().getDisplayMetrics();
+        return dm.heightPixels;
     }
 }

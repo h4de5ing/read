@@ -2,6 +2,7 @@ package com.code19.read.util;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.security.DigestInputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -13,27 +14,26 @@ import java.security.NoSuchAlgorithmException;
 public class Md5Utils {
 
     /**
-     * @param pwd 需要加密的字符串
+     * @param input 需要加密的字符串
      * @return 返回加密后的字符串
      */
-    public static String encode(String pwd) {
+    public static String encode(String input) {
         try {
-            MessageDigest instance = MessageDigest.getInstance("md5");
-            byte[] digest = instance.digest(pwd.getBytes());
-            StringBuilder sb = new StringBuilder();
-            for (byte b : digest) {
-                int r = b & 0xff;
-                String hex = Integer.toHexString(r);
-                if (hex.length() == 1) {
-                    hex = 0 + hex;
-                }
-                sb.append(r);
+            MessageDigest messageDigest = MessageDigest.getInstance("MD5");
+            byte[] inputByteArray = input.getBytes();
+            messageDigest.update(inputByteArray);
+            byte[] resultByteArray = messageDigest.digest();
+            char[] hexDigits = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
+            char[] resultCharArray = new char[resultByteArray.length * 2];
+            int index = 0;
+            for (byte b : resultByteArray) {
+                resultCharArray[index++] = hexDigits[b >>> 4 & 0xf];
+                resultCharArray[index++] = hexDigits[b & 0xf];
             }
-            return sb.toString();
+            return new String(resultCharArray);
         } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
+            return null;
         }
-        return null;
     }
 
     /**
@@ -41,29 +41,34 @@ public class Md5Utils {
      * @return 返回加密后的字符串
      */
     public static String encode(InputStream in) {
-        MessageDigest digester = null;
+        int bufferSize = 256 * 1024;
+        DigestInputStream digestInputStream = null;
         try {
-            digester = MessageDigest.getInstance("MD5");
-            byte[] bytes = new byte[8192];
-            int byteCount;
-            while ((byteCount = in.read(bytes)) > 0) {
-                digester.update(bytes, 0, byteCount);
+            MessageDigest messageDigest = MessageDigest.getInstance("MD5");
+            digestInputStream = new DigestInputStream(in, messageDigest);
+            byte[] buffer = new byte[bufferSize];
+            while (digestInputStream.read(buffer) > 0) ;
+            messageDigest = digestInputStream.getMessageDigest();
+            byte[] resultByteArray = messageDigest.digest();
+            char[] hexDigits = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
+            char[] resultCharArray = new char[resultByteArray.length * 2];
+            int index = 0;
+            for (byte b : resultByteArray) {
+                resultCharArray[index++] = hexDigits[b >>> 4 & 0xf];
+                resultCharArray[index++] = hexDigits[b & 0xf];
             }
-            byte[] digest = digester.digest();
-            StringBuilder sb = new StringBuilder();
-            for (byte b : digest) {
-                int r = b & 0xff;
-                String hex = Integer.toHexString(r);
-                if (hex.length() == 1) {
-                    hex = 0 + hex;
-                }
-                sb.append(hex);
-            }
-            return sb.toString();
+            return new String(resultCharArray);
+        } catch (NoSuchAlgorithmException e) {
+            return null;
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
+        } finally {
+            try {
+                if (digestInputStream != null)
+                    digestInputStream.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         return null;
     }

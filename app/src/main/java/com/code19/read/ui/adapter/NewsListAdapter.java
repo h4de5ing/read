@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.code19.read.R;
 import com.code19.read.domain.NewModel;
+import com.code19.read.util.PicassoUtils;
 
 import java.util.List;
 
@@ -54,18 +55,7 @@ public class NewsListAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
         NewModel.NewslistEntity newslistEntity = mData.get(position);
-        //ImageUtils.setImageViewURL(newslistEntity.getPicUrl(), holder.pic);
-        final ViewHolder finalHolder = holder;
-   /*     OkHttpUtils.get(newslistEntity.getPicUrl())
-                .tag(this)
-                .execute(new BitmapCallback() {
-                             @Override
-                             public void onResponse(boolean isFromCache, Bitmap bitmap, Request request, @Nullable Response response) {
-                                 finalHolder.pic.setImageBitmap(bitmap);
-                             }
-                         }
-                );*/
-        holder.pic.setImageResource(R.mipmap.ic_launcher);
+        PicassoUtils.loadImageWithHodler(mContext, newslistEntity.getPicUrl(), R.mipmap.ic_launcher, holder.pic);
         holder.Title.setText(newslistEntity.getTitle());
         holder.des.setText(newslistEntity.getDescription());
         holder.cTime.setText(newslistEntity.getCtime());
