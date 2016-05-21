@@ -69,7 +69,6 @@ public class ZhihuDailyFragment extends Fragment implements IZhihuView, ViewPage
         mTv_desc = (TextView) view.findViewById(R.id.zhihu_vp_disc);
         mZhihu_recy = (RecyclerView) view.findViewById(R.id.zhihu_recy);
         mZhihu_recy.setLayoutManager(new LinearLayoutManager(mContext));
-        mZhihu_recy.setAdapter(new ZhihuRecyAdapter(mContext, mStories));
         return view;
     }
 
@@ -95,6 +94,7 @@ public class ZhihuDailyFragment extends Fragment implements IZhihuView, ViewPage
         initViewPager();
         mZhihu_viewpager.setAdapter(new ZhihuViewPagerAdapter());
         mZhihu_viewpager.addOnPageChangeListener(this);
+        mZhihu_recy.setAdapter(new ZhihuRecyAdapter(mContext, mStories));
     }
 
     private void initViewPager() {
@@ -103,7 +103,7 @@ public class ZhihuDailyFragment extends Fragment implements IZhihuView, ViewPage
         LinearLayout.LayoutParams params;
         for (int i = 0; i < mTop_stories.size(); i++) {
             ImageView iv = new ImageView(mContext);
-            PicassoUtils.loadImageWithHodler(mContext, mTop_stories.get(i).getImage(), R.mipmap.ic_launcher, iv);
+            PicassoUtils.loadImageWithHolder(mContext, mTop_stories.get(i).getImage(), R.mipmap.ic_launcher, iv);
             ivList.add(iv);
             //添加一个小圆点
             params = new LinearLayout.LayoutParams(20, 20);

@@ -10,12 +10,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.code19.library.CacheUtils;
+import com.code19.library.DensityUtil;
+import com.code19.library.NetUtils;
 import com.code19.read.ApiConfig;
+import com.code19.read.App;
 import com.code19.read.MainActivity;
 import com.code19.read.R;
-import com.code19.read.util.CacheUtils;
-import com.code19.read.util.FileUtils;
-import com.code19.read.util.NetUtils;
 import com.code19.read.util.PicassoUtils;
 import com.google.gson.Gson;
 import com.lzy.okhttputils.OkHttpUtils;
@@ -47,7 +48,7 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void run() {
                 SystemClock.sleep(2000);
-                if ("".equals(CacheUtils.getCache(ApiConfig.ZhihuSplashURL))) { //为空,就从网络去加载
+                if ("".equals(CacheUtils.getCache(App.getContext(),ApiConfig.ZhihuSplashURL ))) { //为空,就从网络去加载
                     if (NetUtils.isConnected(SplashActivity.this)) {
                         OkHttpUtils.get(ApiConfig.ZhihuSplashURL)
                                 .tag(this)
@@ -57,7 +58,7 @@ public class SplashActivity extends AppCompatActivity {
                                     @Override
                                     public void onResponse(boolean isFromCache, String s, Request request, @Nullable Response response) {
                                         set(s);
-                                        CacheUtils.setCache(ApiConfig.ZhihuSplashURL, s);
+                                        CacheUtils.setCache(App.getContext(),ApiConfig.ZhihuSplashURL, s);
                                     }
                                 });
                     } else {
@@ -69,7 +70,7 @@ public class SplashActivity extends AppCompatActivity {
                         });
                     }
                 } else {
-                    String cache = CacheUtils.getCache(ApiConfig.ZhihuSplashURL);
+                    String cache = CacheUtils.getCache(App.getContext(),ApiConfig.ZhihuSplashURL);
                     set(cache);
                 }
                 startActivity(new Intent(SplashActivity.this, MainActivity.class));
@@ -84,7 +85,7 @@ public class SplashActivity extends AppCompatActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                PicassoUtils.loadImageWithSize(mContext, mSplash.getImg(), FileUtils.getScreenW(mContext), FileUtils.getScreenH(mContext), mIv_splash);
+                PicassoUtils.loadImageWithSize(mContext, mSplash.getImg(), DensityUtil.getScreenW(mContext), DensityUtil.getScreenH(mContext), mIv_splash);
                 mTv_splash.setText(mSplash.getText());
             }
         });

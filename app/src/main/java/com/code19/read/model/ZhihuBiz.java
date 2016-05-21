@@ -2,10 +2,10 @@ package com.code19.read.model;
 
 import android.support.annotation.Nullable;
 
+import com.code19.library.CacheUtils;
+import com.code19.library.NetUtils;
 import com.code19.read.App;
 import com.code19.read.domain.ZhihuModel;
-import com.code19.read.util.CacheUtils;
-import com.code19.read.util.NetUtils;
 import com.google.gson.Gson;
 import com.lzy.okhttputils.OkHttpUtils;
 import com.lzy.okhttputils.cache.CacheMode;
@@ -33,7 +33,7 @@ public class ZhihuBiz implements IZhihuBiz {
                                 public void onResponse(boolean isFromCache, String s, Request request, @Nullable Response response) {
                                     Gson gson = new Gson();
                                     ZhihuModel z = gson.fromJson(s, ZhihuModel.class);
-                                    CacheUtils.setCache(url, s);  //设置缓存
+                                    CacheUtils.setCache(App.getContext(),url, s);  //设置缓存
                                     onZhihuLoadListener.loadSuccess(z);
                                 }
                             });

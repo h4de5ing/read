@@ -12,4 +12,5 @@ public class ApiConfig {
     public static String ZhihuDialyNewUrl = "http://news-at.zhihu.com/api/4/news";
     //知乎日报splash界面中的背景和文本
     public static String ZhihuSplashURL = "http://news-at.zhihu.com/api/4/start-image/720*1184";
+    public static String BILIBILIURL = "http://api.bilibili.cn/index";
 }

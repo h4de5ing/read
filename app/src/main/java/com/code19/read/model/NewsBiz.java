@@ -2,10 +2,10 @@ package com.code19.read.model;
 
 import android.support.annotation.Nullable;
 
+import com.code19.library.CacheUtils;
+import com.code19.library.NetUtils;
 import com.code19.read.App;
 import com.code19.read.domain.NewModel;
-import com.code19.read.util.CacheUtils;
-import com.code19.read.util.NetUtils;
 import com.google.gson.Gson;
 import com.lzy.okhttputils.OkHttpUtils;
 import com.lzy.okhttputils.cache.CacheMode;
@@ -26,7 +26,7 @@ public class NewsBiz implements INewsBiz {
             @Override
             public void run() {
                 if (NetUtils.isConnected(App.getContext())) {
-                    if ("".equals(CacheUtils.getCache(uri))) { //缓存为空就从网络加载
+                    if ("".equals(CacheUtils.getCache(App.getContext(),uri ))) { //缓存为空就从网络加载
                         OkHttpUtils.get(uri)
                                 .tag(this)
                                 .cacheKey(url)
@@ -36,13 +36,13 @@ public class NewsBiz implements INewsBiz {
                                     public void onResponse(boolean isFromCache, String s, Request request, @Nullable Response response) {
                                         Gson gson = new Gson();
                                         NewModel n = gson.fromJson(s, NewModel.class);
-                                        CacheUtils.setCache(uri, s);  //设置缓存
+                                        CacheUtils.setCache(App.getContext(),uri, s);  //设置缓存
                                         onLoadListener.loadSuccess(n);
                                     }
                                 });
                     } else { //缓存不为空就从本地加载
                         Gson gson = new Gson();
-                        NewModel n = gson.fromJson(CacheUtils.getCache(uri), NewModel.class);
+                        NewModel n = gson.fromJson(CacheUtils.getCache(App.getContext(),uri ), NewModel.class);
                         onLoadListener.loadSuccess(n);
                     }
                 } else {

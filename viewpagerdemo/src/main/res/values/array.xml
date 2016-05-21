@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="desc">
+        <item>这是描述1</item>
+        <item>这是描述2</item>
+        <item>这是描述3</item>
+        <item>这是描述4</item>
+        <item>这是描述5</item>
+    </string-array>
+</resources>
