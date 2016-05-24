@@ -17,7 +17,7 @@ public class PicassoUtils {
         Picasso.with(context).load(path).resize(width, height).centerCrop().into(imageView);
     }
 
-    public static void loadImageWithHodler(Context context, String path, int resID, ImageView imageView) {
+    public static void loadImageWithHolder(Context context, String path, int resID, ImageView imageView) {
         Picasso.with(context).load(path).fit().placeholder(resID).into(imageView);
     }
 

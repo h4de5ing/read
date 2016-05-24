@@ -8,9 +8,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.code19.library.FileUtils;
 import com.code19.read.R;
 import com.code19.read.domain.AppModel;
-import com.code19.read.util.FileUtils;
 
 import java.util.List;
 

@@ -2,7 +2,6 @@ package com.code19.read.ui.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +11,6 @@ import android.widget.Toast;
 
 import com.code19.read.R;
 import com.code19.read.domain.ZhihuModel;
-import com.code19.read.util.PicassoUtils;
 
 import java.util.List;
 
@@ -38,9 +36,10 @@ public class ZhihuRecyAdapter extends RecyclerView.Adapter<ZhihuRecyAdapter.Zhih
     @Override
     public void onBindViewHolder(ZhihuViewHolder holder, int position) {
         holder.tv.setText(mStories.get(position).getTitle());
-        String s = mStories.get(position).getImages().get(position);
-        Log.i("ghost", "第" + position + "张图片，地址" + s);
-        PicassoUtils.loadImageWithHodler(mContext, s, R.mipmap.ic_launcher, holder.iv);
+        holder.iv.setImageResource(R.mipmap.ic_launcher);
+        //String s = mStories.get(position).getImages().get(position);
+        //Log.i("ghost", "第" + position + "张图片，地址:" + s);
+        //PicassoUtils.loadImageWithHolder(mContext, s, R.mipmap.ic_launcher, holder.iv);
     }
 
 
@@ -60,7 +59,7 @@ public class ZhihuRecyAdapter extends RecyclerView.Adapter<ZhihuRecyAdapter.Zhih
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(mContext, "点击了" + v.getId(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "点击了" + mStories.get(getAdapterPosition()).getId(), Toast.LENGTH_SHORT).show();
                 }
             });
         }

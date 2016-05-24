@@ -55,7 +55,7 @@ public class NewsListAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
         NewModel.NewslistEntity newslistEntity = mData.get(position);
-        PicassoUtils.loadImageWithHodler(mContext, newslistEntity.getPicUrl(), R.mipmap.ic_launcher, holder.pic);
+        PicassoUtils.loadImageWithHolder(mContext, newslistEntity.getPicUrl(), R.mipmap.ic_launcher, holder.pic);
         holder.Title.setText(newslistEntity.getTitle());
         holder.des.setText(newslistEntity.getDescription());
         holder.cTime.setText(newslistEntity.getCtime());
