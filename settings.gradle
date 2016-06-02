@@ -1,5 +1,1 @@
-<<<<<<< HEAD
-include ':app', ':materialdemo'
-=======
-include ':app', ':viewpagerdemo'
->>>>>>> 1eee21a4e620920d1708b838fa23311f16856d44
+include ':app',':viewpagerdemo',':materialdemo'
