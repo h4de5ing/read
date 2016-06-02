@@ -42,9 +42,14 @@ public class ZhihuLoadPresenter {
             }
 
             @Override
-            public void loadFailed(String tips) {
-                mIZhihuView.hideLoading();
-                mIZhihuView.showFailedError(tips);
+            public void loadFailed(final String tips) {
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        mIZhihuView.hideLoading();
+                        mIZhihuView.showFailedError(tips);
+                    }
+                });
             }
         });
     }

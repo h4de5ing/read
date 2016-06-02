@@ -13,7 +13,6 @@ import com.squareup.picasso.Transformation;
 public class PicassoUtils {
 
     public static void loadImageWithSize(Context context, String path, int width, int height, ImageView imageView) {
-
         Picasso.with(context).load(path).resize(width, height).centerCrop().into(imageView);
     }
 
@@ -35,8 +34,8 @@ public class PicassoUtils {
             int x = (source.getWidth() - size) / 2;
             int y = (source.getHeight() - size) / 2;
             Bitmap result = Bitmap.createBitmap(source, x, y, size, size);
-            if (result!=null){
-                source.recycle();;
+            if (result != null) {
+                source.recycle();
             }
             return result;
         }

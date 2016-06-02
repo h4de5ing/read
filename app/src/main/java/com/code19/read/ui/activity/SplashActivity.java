@@ -3,7 +3,6 @@ package com.code19.read.ui.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
@@ -11,7 +10,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.code19.library.CacheUtils;
-import com.code19.library.DensityUtil;
 import com.code19.library.NetUtils;
 import com.code19.read.ApiConfig;
 import com.code19.read.App;
@@ -30,7 +28,6 @@ import okhttp3.Response;
  * Create by h4de5ing 2016/5/18 018
  */
 public class SplashActivity extends AppCompatActivity {
-    private static final String TAG = "ghost";
 
     private Splash mSplash;
     private ImageView mIv_splash;
@@ -47,8 +44,8 @@ public class SplashActivity extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                SystemClock.sleep(2000);
-                if ("".equals(CacheUtils.getCache(App.getContext(),ApiConfig.ZhihuSplashURL ))) { //为空,就从网络去加载
+                //SystemClock.sleep(2000);
+                if ("".equals(CacheUtils.getCache(App.getContext(), ApiConfig.ZhihuSplashURL))) { //为空,就从网络去加载
                     if (NetUtils.isConnected(SplashActivity.this)) {
                         OkHttpUtils.get(ApiConfig.ZhihuSplashURL)
                                 .tag(this)
@@ -58,7 +55,7 @@ public class SplashActivity extends AppCompatActivity {
                                     @Override
                                     public void onResponse(boolean isFromCache, String s, Request request, @Nullable Response response) {
                                         set(s);
-                                        CacheUtils.setCache(App.getContext(),ApiConfig.ZhihuSplashURL, s);
+                                        CacheUtils.setCache(App.getContext(), ApiConfig.ZhihuSplashURL, s);
                                     }
                                 });
                     } else {
@@ -70,7 +67,7 @@ public class SplashActivity extends AppCompatActivity {
                         });
                     }
                 } else {
-                    String cache = CacheUtils.getCache(App.getContext(),ApiConfig.ZhihuSplashURL);
+                    String cache = CacheUtils.getCache(App.getContext(), ApiConfig.ZhihuSplashURL);
                     set(cache);
                 }
                 startActivity(new Intent(SplashActivity.this, MainActivity.class));
@@ -85,37 +82,14 @@ public class SplashActivity extends AppCompatActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                PicassoUtils.loadImageWithSize(mContext, mSplash.getImg(), DensityUtil.getScreenW(mContext), DensityUtil.getScreenH(mContext), mIv_splash);
-                mTv_splash.setText(mSplash.getText());
+                PicassoUtils.loadImageWithCrop(mContext, mSplash.img, mIv_splash);
+                mTv_splash.setText(mSplash.text);
             }
         });
     }
 
     class Splash {
-
-
-        /**
-         * text : Matthew Wiebe
-         * img : https://pic2.zhimg.com/90f85c1aae2ca0845540bd298303ab5b.jpg
-         */
-
-        private String text;
-        private String img;
-
-        public String getText() {
-            return text;
-        }
-
-        public void setText(String text) {
-            this.text = text;
-        }
-
-        public String getImg() {
-            return img;
-        }
-
-        public void setImg(String img) {
-            this.img = img;
-        }
+        public String text;
+        public String img;
     }
 }
