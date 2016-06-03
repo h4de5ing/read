@@ -23,6 +23,7 @@ public class NewsLoadPresenter {
     }
 
     public void getData() {
+        mINewsView.showLoading();
         mINewsBiz.getData(mINewsView.getUrl(), mINewsView.getKeyWorld(), mINewsView.getNum(), mINewsView.getPage(), new OnLoadListener() {
             @Override
             public void loadSuccess(final NewModel newModel) {
@@ -33,11 +34,6 @@ public class NewsLoadPresenter {
                         mINewsView.hideLoading();
                     }
                 });
-            }
-
-            @Override
-            public void loadProgress() {
-                mINewsView.showLoading();
             }
 
             @Override

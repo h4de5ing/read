@@ -37,11 +37,6 @@ public class ZhihuLoadPresenter {
             }
 
             @Override
-            public void loadProgress() {
-                mIZhihuView.showLoading();
-            }
-
-            @Override
             public void loadFailed(final String tips) {
                 mHandler.post(new Runnable() {
                     @Override

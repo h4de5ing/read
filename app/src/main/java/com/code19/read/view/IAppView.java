@@ -11,5 +11,4 @@ public interface IAppView {
     void showLoading();
     void hideLoading();
     void referData(List<AppModel> list);
-
 }

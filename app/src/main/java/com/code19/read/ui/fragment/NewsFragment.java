@@ -128,8 +128,8 @@ public class NewsFragment extends Fragment implements INewsView {
     }
 
     @Override
-    public void showFailedError(String tips) {
-        Toast.makeText(getActivity(), tips, Toast.LENGTH_SHORT).show();
+    public void showFailedError(String error) {
+        Toast.makeText(getActivity(), error, Toast.LENGTH_SHORT).show();
     }
 
     @Override

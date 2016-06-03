@@ -8,7 +8,5 @@ import com.code19.read.domain.ZhihuModel;
 public interface OnZhihuLoadListener {
     void loadSuccess(ZhihuModel zhihuModel);
 
-    void loadProgress();
-
     void loadFailed(String tips);
 }

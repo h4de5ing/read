@@ -61,7 +61,7 @@ public class ToolsRecyAdapter extends RecyclerView.Adapter<ToolsRecyAdapter.Tool
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    FileUtils.shareFile(mContext, mDatas.get(getAdapterPosition()).getAppApk());
+                    FileUtils.shareFile(mContext, "分享文件", mDatas.get(getAdapterPosition()).getAppApk());
                 }
             });
         }

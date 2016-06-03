@@ -28,10 +28,6 @@ public class AppLoadPresenter {
         mIAppView.showLoading();
         mIAppBiz.getAppInfo(new OnAppLoadListener() {
             @Override
-            public void loadProgress() {
-            }
-
-            @Override
             public void loadFinish(final List<AppModel> list) {
                 mHandler.post(new Runnable() {
                     @Override

@@ -1,14 +1,12 @@
 package com.code19.read.model;
 
 import android.support.annotation.Nullable;
+import android.util.Log;
 
-import com.code19.library.CacheUtils;
 import com.code19.library.NetUtils;
 import com.code19.read.App;
 import com.code19.read.R;
-import com.code19.read.domain.ZhihuModel;
 import com.code19.read.util.Utils;
-import com.google.gson.Gson;
 import com.lzy.okhttputils.OkHttpUtils;
 import com.lzy.okhttputils.cache.CacheMode;
 import com.lzy.okhttputils.callback.StringCallback;
@@ -17,11 +15,11 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 /**
- * Create by h4de5ing 2016/5/18 018
+ * Created by Gh0st on 2016/6/3 003.
  */
-public class ZhihuBiz implements IZhihuBiz {
+public class BiliBiliBiz implements IBiliBiliBiz {
     @Override
-    public void getData(final String url, final OnZhihuLoadListener onZhihuLoadListener) {
+    public void getBiliData(final String url, final OnBiliBiliLoadListener onBiliBiliLoadListener) {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -33,14 +31,12 @@ public class ZhihuBiz implements IZhihuBiz {
                             .execute(new StringCallback() {
                                 @Override
                                 public void onResponse(boolean isFromCache, String s, Request request, @Nullable Response response) {
-                                    Gson gson = new Gson();
-                                    ZhihuModel z = gson.fromJson(s, ZhihuModel.class);
-                                    CacheUtils.setCache(App.getContext(), url, s);  //设置缓存
-                                    onZhihuLoadListener.loadSuccess(z);
+                                    Log.i("ghost", "Bili:" + s);
+                                    //onBiliBiliLoadListener.loadSuccess();
                                 }
                             });
                 } else {
-                    onZhihuLoadListener.loadFailed(Utils.getString(R.string.check_networkd));
+                    onBiliBiliLoadListener.loadFailed(Utils.getString(R.string.check_networkd));
                 }
             }
         }).start();

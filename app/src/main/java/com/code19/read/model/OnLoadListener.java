@@ -8,7 +8,5 @@ import com.code19.read.domain.NewModel;
 public interface OnLoadListener {
     void loadSuccess(NewModel newModel);
 
-    void loadProgress();
-
     void loadFailed(String tips);
 }
