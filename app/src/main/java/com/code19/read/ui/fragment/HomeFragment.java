@@ -28,7 +28,7 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         String[] mHome_title = getActivity().getResources().getStringArray(R.array.home_title);
-        View view = inflater.inflate(R.layout.fragment_home, null);
+        View view = inflater.inflate(R.layout.fragment_home, container);
         TabLayout tabLayout = (TabLayout) view.findViewById(R.id.home_tablayout);
         ViewPager viewPager = (ViewPager) view.findViewById(R.id.home_viewpager);
         viewPager.setAdapter(new HomeAdapter(mMainActivity.getSupportFragmentManager(), mHome_title));
