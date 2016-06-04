@@ -1,6 +1,5 @@
 package com.code19.read.ui.fragment;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,10 +10,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.code19.read.ApiConfig;
-import com.code19.read.R;
 import com.code19.read.domain.BiliBiliModel;
 import com.code19.read.preserter.BiliBiliLoadPresenter;
-import com.code19.read.util.Utils;
 import com.code19.read.view.IBibiBiliView;
 
 /**
@@ -23,23 +20,14 @@ import com.code19.read.view.IBibiBiliView;
 public class BiliBiliFragment extends Fragment implements IBibiBiliView {
     private static final String TAG = "ghost";
     private BiliBiliLoadPresenter mPresenter;
-    private ProgressDialog mDialog;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initDialog();
         mPresenter = new BiliBiliLoadPresenter(this);
         mPresenter.getData();
     }
 
-    private void initDialog() {
-        mDialog = new ProgressDialog(getActivity());
-        mDialog.setMessage(Utils.getString(R.string.loading));
-        mDialog.setCancelable(true);
-        mDialog.setCanceledOnTouchOutside(true);
-        mDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-    }
 
     @Nullable
     @Override
@@ -54,14 +42,12 @@ public class BiliBiliFragment extends Fragment implements IBibiBiliView {
 
     @Override
     public void showLoading() {
-        if (!mDialog.isShowing())
-            mDialog.show();
+
     }
 
     @Override
     public void hideLoading() {
-        if (mDialog.isShowing())
-            mDialog.cancel();
+
     }
 
     @Override

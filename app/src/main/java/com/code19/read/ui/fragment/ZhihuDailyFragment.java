@@ -63,7 +63,7 @@ public class ZhihuDailyFragment extends Fragment implements IZhihuView, ViewPage
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_zhihu, container);
+        View view = inflater.inflate(R.layout.fragment_zhihu, null);
         mZhihu_viewpager = (ViewPager) view.findViewById(R.id.zhihu_viewapager);
         mLl_dot_view = (LinearLayout) view.findViewById(R.id.zhihu_vp_dot_view);
         mTv_desc = (TextView) view.findViewById(R.id.zhihu_vp_disc);

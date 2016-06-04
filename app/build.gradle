@@ -31,4 +31,5 @@ dependencies {
     compile 'com.android.support:design:23.3.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.code19.library:library:0.0.6'
+    compile 'com.github.zhaokaiqiang.klog:library:1.4.0'
 }
