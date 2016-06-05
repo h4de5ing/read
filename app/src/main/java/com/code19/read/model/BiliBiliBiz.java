@@ -18,7 +18,7 @@ import okhttp3.Response;
  * Created by Gh0st on 2016/6/3 003.
  */
 public class BiliBiliBiz implements IBiliBiliBiz {
-    private String temp="{\"type1\": {\"0\": {\"age\": 12,\"name\": \"zhangsdan\"},\"1\": {\"age\": 13,\"name\": \"lisi\"},\"num\": \"123\"},\"type3\": {\"0\": {\"age\": 14,\"name\": \"wangwu\"},\"1\": {\"age\": 15,\"name\": \"maliu\"},\"num\": \"456\",}}";
+    private String temp="{'type1': {'0': {'age': 12,'name': 'zhangsdan'},'1': {'age': 13,'name': 'lisi'},'num': '123'},'type3': {'0': {'age': 14,'name': 'wangwu'},'1': {'age': 15,'name': 'maliu'},'num': '456',}}";
     @Override
     public void getBiliData(final String url, final OnBiliBiliLoadListener onBiliBiliLoadListener) {
         new Thread(new Runnable() {
@@ -43,7 +43,7 @@ public class BiliBiliBiz implements IBiliBiliBiz {
         }).start();
     }
 
-    public BiliBiliModel getModel(String json) {
+    private BiliBiliModel getModel(String json) {
 
         return null;
     }
