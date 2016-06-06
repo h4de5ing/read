@@ -6,10 +6,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.code19.read.ApiConfig;
+import com.code19.read.R;
 import com.code19.read.domain.BiliBiliModel;
 import com.code19.read.preserter.BiliBiliLoadPresenter;
 import com.code19.read.view.IBibiBiliView;
@@ -33,7 +33,8 @@ public class BiliBiliFragment extends Fragment implements IBibiBiliView {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return new TextView(getActivity());
+        View view = inflater.inflate(R.layout.bilibili, null);
+        return view;
     }
 
     @Override
