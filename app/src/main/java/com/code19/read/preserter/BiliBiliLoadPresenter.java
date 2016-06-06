@@ -8,6 +8,8 @@ import com.code19.read.model.IBiliBiliBiz;
 import com.code19.read.model.OnBiliBiliLoadListener;
 import com.code19.read.view.IBibiBiliView;
 
+import java.util.List;
+
 /**
  * Created by Gh0st on 2016/6/3 003.
  */
@@ -26,11 +28,11 @@ public class BiliBiliLoadPresenter {
         mIBibiBiliView.showLoading();
         mIBiliBiliBiz.getBiliData(mIBibiBiliView.getUrl(), new OnBiliBiliLoadListener() {
             @Override
-            public void loadSuccess(final BiliBiliModel biliBiliModel) {
+            public void loadSuccess(final List<BiliBiliModel> list) {
                 mHandler.post(new Runnable() {
                     @Override
                     public void run() {
-                        mIBibiBiliView.referData(biliBiliModel);
+                        mIBibiBiliView.referData(list);
                         mIBibiBiliView.hideLoading();
                     }
                 });

@@ -12,10 +12,10 @@ public class Utils {
         return App.getContext().getResources().getString(resId);
     }
 
-    public static void log(Object... str) {
+    public static void i(Object... str) {
         StringBuilder sb = new StringBuilder();
         for (Object obj : str) {
-            sb.append(obj+",");
+            sb.append(obj + ",");
         }
         Log.i("ghost", String.valueOf(sb));
     }

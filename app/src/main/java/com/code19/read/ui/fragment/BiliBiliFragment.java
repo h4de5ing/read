@@ -14,11 +14,12 @@ import com.code19.read.domain.BiliBiliModel;
 import com.code19.read.preserter.BiliBiliLoadPresenter;
 import com.code19.read.view.IBibiBiliView;
 
+import java.util.List;
+
 /**
  * Created by Gh0st on 2016/4/27 027.
  */
 public class BiliBiliFragment extends Fragment implements IBibiBiliView {
-    private static final String TAG = "ghost";
     private BiliBiliLoadPresenter mPresenter;
 
     @Override
@@ -51,7 +52,7 @@ public class BiliBiliFragment extends Fragment implements IBibiBiliView {
     }
 
     @Override
-    public void referData(BiliBiliModel biliBiliModel) {
+    public void referData(List<BiliBiliModel> list) {
 
     }
 
