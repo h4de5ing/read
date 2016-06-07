@@ -17,12 +17,12 @@ import java.util.List;
 /**
  * Create by h4de5ing 2016/5/18 018
  */
-public class ToolsRecyAdapter extends RecyclerView.Adapter<ToolsRecyAdapter.ToolsViewHolder> {
+public class AppRecyAdapter extends RecyclerView.Adapter<AppRecyAdapter.ToolsViewHolder> {
     private LayoutInflater mLayoutInflater;
     private List<AppModel> mDatas;
     private Context mContext;
 
-    public ToolsRecyAdapter(Context context, List<AppModel> list) {
+    public AppRecyAdapter(Context context, List<AppModel> list) {
         mContext = context;
         mLayoutInflater = LayoutInflater.from(context);
         mDatas = list;

@@ -54,10 +54,7 @@ public class NewsFragment extends Fragment implements INewsView {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
-            //相当于Fragment的onResume
             mNewsLoadPresenter.getData();
-        } else {
-            //相当于Fragment的onPause
         }
     }
 

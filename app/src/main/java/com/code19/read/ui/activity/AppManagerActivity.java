@@ -11,7 +11,7 @@ import android.view.Window;
 import com.code19.read.R;
 import com.code19.read.domain.AppModel;
 import com.code19.read.preserter.AppLoadPresenter;
-import com.code19.read.ui.adapter.ToolsRecyAdapter;
+import com.code19.read.ui.adapter.AppRecyAdapter;
 import com.code19.read.view.IAppView;
 
 import java.util.List;
@@ -23,7 +23,7 @@ public class AppManagerActivity extends AppCompatActivity implements IAppView {
     private AppLoadPresenter mAppLoadPresenter;
     private ProgressDialog mDialog;
     private List<AppModel> mData;
-    private ToolsRecyAdapter mRecyAdapter;
+    private AppRecyAdapter mRecyAdapter;
     private RecyclerView mTools_list;
 
     @Override
@@ -60,7 +60,7 @@ public class AppManagerActivity extends AppCompatActivity implements IAppView {
     @Override
     public void referData(List<AppModel> list) {
         mData = list;
-        mRecyAdapter = new ToolsRecyAdapter(this, mData);
+        mRecyAdapter = new AppRecyAdapter(this, mData);
         mTools_list.setAdapter(mRecyAdapter);
         mRecyAdapter.notifyDataSetChanged();
     }

@@ -26,9 +26,15 @@ public class BiliBiliFragment extends Fragment implements IBibiBiliView {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mPresenter = new BiliBiliLoadPresenter(this);
-        mPresenter.getData();
     }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            mPresenter.getData();
+        }
+    }
 
     @Nullable
     @Override

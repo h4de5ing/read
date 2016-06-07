@@ -50,7 +50,14 @@ public class ZhihuDailyFragment extends Fragment implements IZhihuView, ViewPage
         mContext = getActivity();
         initProgress();
         mLoadPresenter = new ZhihuLoadPresenter(this);
-        mLoadPresenter.getData();
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            mLoadPresenter.getData();
+        }
     }
 
     private void initProgress() {
