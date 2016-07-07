@@ -13,4 +13,6 @@ public class ApiConfig {
     //知乎日报splash界面中的背景和文本
     public static String ZhihuSplashURL = "http://news-at.zhihu.com/api/4/start-image/720*1184";
     public static String BILIBILIURL = "http://api.bilibili.cn/index";
+    // ithome xml 解析 more：news_{minNewsId}.xml context:/xml/newscontent/{id}.xml
+    public static String ITHOME = "http://api.ithome.com/xml/newslist/news.xml";
 }

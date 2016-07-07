@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "24.0.0 rc4"
+    compileSdkVersion 24
+    buildToolsVersion "24.0.0"
 
     defaultConfig {
         applicationId "com.code19.read"
         minSdkVersion 15
-        targetSdkVersion 21
+        targetSdkVersion 24
         versionCode 1
         versionName "1.0"
     }
@@ -22,14 +22,15 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.3.0'
+    compile 'com.android.support:appcompat-v7:24.0.0'
     compile 'com.google.code.gson:gson:2.6.2'
     compile 'com.squareup.okhttp:okhttp:2.0.0'
     compile 'com.lzy.net:okhttputils:1.5.0'
     // https://github.com/jeasonlzy0216/OkHttpUtils 2016.05.16 update
-    compile 'com.android.support:recyclerview-v7:23.3.0'
-    compile 'com.android.support:design:23.3.0'
+    compile 'com.android.support:recyclerview-v7:24.0.0'
+    compile 'com.android.support:design:24.0.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
-    compile 'com.code19.library:library:0.0.6'
+    compile 'com.code19.library:library:0.0.7'
     compile 'com.android.support:cardview-v7:+'
+    compile 'com.roughike:bottom-bar:1.4.0'
 }

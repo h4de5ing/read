@@ -15,10 +15,9 @@ public class MeinvFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         TextView tv = new TextView(getActivity());
         tv.setTextSize(20);
-        tv.setText("美女");
+        tv.setText("说吧");
         return tv;
     }
 }

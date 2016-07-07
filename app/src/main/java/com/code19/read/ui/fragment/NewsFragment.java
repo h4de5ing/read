@@ -40,21 +40,22 @@ public class NewsFragment extends Fragment implements INewsView {
         initProgress();
         mData = new ArrayList<NewModel.NewslistEntity>();
         mNewsLoadPresenter = new NewsLoadPresenter(this);
+        mNewsLoadPresenter.getData();
     }
 
     private void initProgress() {
         mDialog = new ProgressDialog(getActivity());
         mDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        mDialog.setCanceledOnTouchOutside(false);
         mDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        mDialog.setMessage("正在加载数据");
+        mDialog.setCanceledOnTouchOutside(false);
+        mDialog.setMessage(getString(R.string.loading));
     }
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
-            mNewsLoadPresenter.getData();
+            //mNewsLoadPresenter.getData();
         }
     }
 
@@ -108,12 +109,12 @@ public class NewsFragment extends Fragment implements INewsView {
 
     @Override
     public void showLoading() {
-        mDialog.show();
+        //mDialog.show();
     }
 
     @Override
     public void hideLoading() {
-        mDialog.cancel();
+        //mDialog.cancel();
     }
 
     @Override

@@ -2,5 +2,8 @@
     <string name="app_name">读</string>
     <string name="check_networkd">请检查网络连接</string>
     <string name="loading">加载中...</string>
-
+    <string name="news">新闻</string>
+    <string name="show">科技</string>
+    <string name="zhihudialy">日报</string>
+    <string name="account">我的</string>
 </resources>

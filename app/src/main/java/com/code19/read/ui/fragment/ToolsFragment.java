@@ -36,7 +36,6 @@ public class ToolsFragment extends Fragment implements IAppView {
         super.onCreate(savedInstanceState);
         initProgress(); //初始化加载进度条
         mAppLoadPresenter = new AppLoadPresenter(this);
-
     }
 
     private void initProgress() {
@@ -59,7 +58,7 @@ public class ToolsFragment extends Fragment implements IAppView {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         c = getActivity();
-        View view = View.inflate(getActivity(), R.layout.fragment_tools, null);
+        View view = View.inflate(getActivity(), R.layout.activity_appmanager, null);
         mTools_list = (RecyclerView) view.findViewById(R.id.recy_tools_list);
         mTools_list.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         return view;

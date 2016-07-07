@@ -8,12 +8,8 @@
         android:id="@+id/setting"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="关于"
+        android:text="我的个人中心"
         android:textColor="@android:color/black"
         android:textSize="20sp"/>
 
-    <TextView
-        android:id="@+id/about"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
 </LinearLayout>

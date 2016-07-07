@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.code19.library.L;
 import com.code19.read.ApiConfig;
 import com.code19.read.R;
 import com.code19.read.domain.ZhihuModel;
@@ -50,6 +51,7 @@ public class ZhihuDailyFragment extends Fragment implements IZhihuView, ViewPage
         mContext = getActivity();
         initProgress();
         mLoadPresenter = new ZhihuLoadPresenter(this);
+        mLoadPresenter.getData();
     }
 
     @Override
@@ -101,7 +103,8 @@ public class ZhihuDailyFragment extends Fragment implements IZhihuView, ViewPage
         initViewPager();
         mZhihu_viewpager.setAdapter(new ZhihuViewPagerAdapter());
         mZhihu_viewpager.addOnPageChangeListener(this);
-        mZhihu_recy.setAdapter(new ZhihuRecyAdapter(mContext, mStories));
+        ZhihuRecyAdapter adapter = new ZhihuRecyAdapter(mContext, mStories);
+        mZhihu_recy.setAdapter(adapter);
     }
 
     private void initViewPager() {
@@ -133,7 +136,7 @@ public class ZhihuDailyFragment extends Fragment implements IZhihuView, ViewPage
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
+        L.i("位置", positionOffset, positionOffsetPixels);
     }
 
     @Override
