@@ -2,6 +2,7 @@ package com.code19.read.ui.fragment;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,6 +10,7 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,17 +19,30 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.code19.library.L;
+import com.code19.library.CacheUtils;
+import com.code19.library.NetUtils;
 import com.code19.read.ApiConfig;
+import com.code19.read.App;
 import com.code19.read.R;
 import com.code19.read.domain.ZhihuModel;
+import com.code19.read.domain.ZhihuStoryModel;
 import com.code19.read.preserter.ZhihuLoadPresenter;
+import com.code19.read.ui.activity.WebViewActivity;
 import com.code19.read.ui.adapter.ZhihuRecyAdapter;
 import com.code19.read.util.PicassoUtils;
 import com.code19.read.view.IZhihuView;
+import com.google.gson.Gson;
+import com.lzy.okhttputils.OkHttpUtils;
+import com.lzy.okhttputils.cache.CacheMode;
+import com.lzy.okhttputils.callback.StringCallback;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.Request;
+import okhttp3.Response;
+
+import static com.code19.library.CacheUtils.getCache;
 
 /**
  * Created by Gh0st on 2016/4/27 027.
@@ -44,6 +59,7 @@ public class ZhihuDailyFragment extends Fragment implements IZhihuView, ViewPage
     private int priposition = 0;
     private List<ImageView> ivList;
     private TextView mTv_desc;
+    private static String s = null;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -136,7 +152,7 @@ public class ZhihuDailyFragment extends Fragment implements IZhihuView, ViewPage
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        L.i("位置", positionOffset, positionOffsetPixels);
+        //L.i("位置", positionOffset, positionOffsetPixels);
     }
 
     @Override
@@ -168,11 +184,37 @@ public class ZhihuDailyFragment extends Fragment implements IZhihuView, ViewPage
         public Object instantiateItem(ViewGroup container, final int position) {
             View view = ivList.get(position % mTop_stories.size());
             view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(mContext, "点击了" + position + "张图片", Toast.LENGTH_SHORT).show();
-                }
-            });
+                                        @Override
+                                        public void onClick(View v) {
+                                            final String url = ApiConfig.ZhihuDialyNewUrl + mStories.get(position).getId();
+                                            if (NetUtils.isConnected(App.getContext())) {
+                                                if (!TextUtils.isEmpty(getCache(App.getContext(), url))) {
+                                                    s = CacheUtils.getCache(App.getContext(), url);
+                                                } else {
+                                                    OkHttpUtils.get(url)
+                                                            .tag(this)
+                                                            .cacheKey(url)
+                                                            .cacheMode(CacheMode.REQUEST_FAILED_READ_CACHE)
+                                                            .execute(new StringCallback() {
+                                                                @Override
+                                                                public void onResponse(boolean isFromCache, String s, Request request, @Nullable Response response) {
+                                                                    ZhihuDailyFragment.s = s;
+                                                                    CacheUtils.setCache(App.getContext(), url, s);  //设置缓存
+                                                                }
+                                                            });
+                                                }
+                                                Gson gson = new Gson();
+                                                ZhihuStoryModel z = gson.fromJson(s, ZhihuStoryModel.class);
+                                                Intent intent = new Intent(getActivity(), WebViewActivity.class);
+                                                intent.putExtra(WebViewActivity.zhihuURL, z.getBody());
+                                                startActivity(intent);
+                                            } else {
+                                                Toast.makeText(getActivity(), getString(R.string.check_networkd), Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    }
+
+            );
             container.addView(view);
             return view;
         }

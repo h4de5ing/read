@@ -1,6 +1,7 @@
 package com.code19.read.model;
 
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 
 import com.code19.library.CacheUtils;
 import com.code19.library.NetUtils;
@@ -16,29 +17,39 @@ import com.lzy.okhttputils.callback.StringCallback;
 import okhttp3.Request;
 import okhttp3.Response;
 
+import static com.code19.library.CacheUtils.getCache;
+
 /**
  * Create by h4de5ing 2016/5/18 018
  */
 public class ZhihuBiz implements IZhihuBiz {
+    private static String s = null;
+
     @Override
     public void getData(final String url, final OnZhihuLoadListener onZhihuLoadListener) {
         new Thread(new Runnable() {
             @Override
             public void run() {
                 if (NetUtils.isConnected(App.getContext())) {
-                    OkHttpUtils.get(url)
-                            .tag(this)
-                            .cacheKey(url)
-                            .cacheMode(CacheMode.REQUEST_FAILED_READ_CACHE)
-                            .execute(new StringCallback() {
-                                @Override
-                                public void onResponse(boolean isFromCache, String s, Request request, @Nullable Response response) {
-                                    Gson gson = new Gson();
-                                    ZhihuModel z = gson.fromJson(s, ZhihuModel.class);
-                                    CacheUtils.setCache(App.getContext(), url, s);  //设置缓存
-                                    onZhihuLoadListener.loadSuccess(z);
-                                }
-                            });
+                    if (!TextUtils.isEmpty(getCache(App.getContext(), url))) {
+                        s = CacheUtils.getCache(App.getContext(), url);
+                    } else {
+                        OkHttpUtils.get(url)
+                                .tag(this)
+                                .cacheKey(url)
+                                .cacheMode(CacheMode.REQUEST_FAILED_READ_CACHE)
+                                .execute(new StringCallback() {
+
+                                    @Override
+                                    public void onResponse(boolean isFromCache, String s, Request request, @Nullable Response response) {
+                                        ZhihuBiz.s = s;
+                                        CacheUtils.setCache(App.getContext(), url, s);  //设置缓存
+                                    }
+                                });
+                    }
+                    Gson gson = new Gson();
+                    ZhihuModel z = gson.fromJson(s, ZhihuModel.class);
+                    onZhihuLoadListener.loadSuccess(z);
                 } else {
                     onZhihuLoadListener.loadFailed(Utils.getString(R.string.check_networkd));
                 }
