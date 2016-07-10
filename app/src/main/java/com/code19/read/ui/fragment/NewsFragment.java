@@ -1,16 +1,14 @@
 package com.code19.read.ui.fragment;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -19,6 +17,7 @@ import com.code19.read.ApiConfig;
 import com.code19.read.R;
 import com.code19.read.domain.NewModel;
 import com.code19.read.preserter.NewsLoadPresenter;
+import com.code19.read.ui.activity.WebViewActivity;
 import com.code19.read.ui.adapter.NewsListAdapter;
 import com.code19.read.view.INewsView;
 
@@ -61,7 +60,7 @@ public class NewsFragment extends Fragment implements INewsView {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         /*if (Looper.myLooper() == Looper.getMainLooper()) {
             Log.w("ghost", "在主线程中执行");
         }*/
@@ -70,15 +69,10 @@ public class NewsFragment extends Fragment implements INewsView {
         newsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-                Log.i("ghost", "点击:" + position);
-                WebView webView = new WebView(getActivity());
-                webView.setWebViewClient(new WebViewClient() {
-                    @Override
-                    public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                        view.loadUrl(mData.get(position).getUrl());
-                        return true;
-                    }
-                });
+                Intent intent = new Intent(getActivity(), WebViewActivity.class);
+                String url = mData.get(position).getUrl();
+                intent.putExtra(WebViewActivity.httpURL, url);
+                startActivity(intent);
             }
         });
         mAdapter = new NewsListAdapter(getActivity(), mData);

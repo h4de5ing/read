@@ -1,18 +1,32 @@
 package com.code19.read.ui.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.code19.library.CacheUtils;
+import com.code19.read.App;
 import com.code19.read.R;
 import com.code19.read.domain.ZhihuModel;
+import com.code19.read.domain.ZhihuStoryModel;
+import com.code19.read.ui.activity.WebViewActivity;
+import com.google.gson.Gson;
+import com.lzy.okhttputils.OkHttpUtils;
+import com.lzy.okhttputils.cache.CacheMode;
+import com.lzy.okhttputils.callback.StringCallback;
 
 import java.util.List;
+
+import okhttp3.Request;
+import okhttp3.Response;
+
+import static com.code19.read.ApiConfig.ZhihuDialyNewUrl;
 
 /**
  * Create by h4de5ing 2016/5/20 020
@@ -59,7 +73,22 @@ public class ZhihuRecyAdapter extends RecyclerView.Adapter<ZhihuRecyAdapter.Zhih
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(mContext, "点击了" + mStories.get(getAdapterPosition()).getId(), Toast.LENGTH_SHORT).show();
+                    final String url = ZhihuDialyNewUrl + mStories.get(getAdapterPosition()).getId();
+                    OkHttpUtils.get(url)
+                            .tag(this)
+                            .cacheKey(url)
+                            .cacheMode(CacheMode.REQUEST_FAILED_READ_CACHE)
+                            .execute(new StringCallback() {
+                                @Override
+                                public void onResponse(boolean isFromCache, String s, Request request, @Nullable Response response) {
+                                    Gson gson = new Gson();
+                                    ZhihuStoryModel z = gson.fromJson(s, ZhihuStoryModel.class);
+                                    CacheUtils.setCache(App.getContext(), url, s);  //设置缓存
+                                    Intent intent = new Intent(mContext, WebViewActivity.class);
+                                    intent.putExtra(WebViewActivity.zhihuURL, z.getBody());
+                                    mContext.startActivity(intent);
+                                }
+                            });
                 }
             });
         }
