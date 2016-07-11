@@ -2,7 +2,6 @@ package com.code19.read.ui.fragment;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -25,13 +24,11 @@ import com.code19.read.ApiConfig;
 import com.code19.read.App;
 import com.code19.read.R;
 import com.code19.read.domain.ZhihuModel;
-import com.code19.read.domain.ZhihuStoryModel;
 import com.code19.read.preserter.ZhihuLoadPresenter;
-import com.code19.read.ui.activity.WebViewActivity;
 import com.code19.read.ui.adapter.ZhihuRecyAdapter;
 import com.code19.read.util.PicassoUtils;
+import com.code19.read.util.Utils;
 import com.code19.read.view.IZhihuView;
-import com.google.gson.Gson;
 import com.lzy.okhttputils.OkHttpUtils;
 import com.lzy.okhttputils.cache.CacheMode;
 import com.lzy.okhttputils.callback.StringCallback;
@@ -59,7 +56,6 @@ public class ZhihuDailyFragment extends Fragment implements IZhihuView, ViewPage
     private int priposition = 0;
     private List<ImageView> ivList;
     private TextView mTv_desc;
-    private static String s = null;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -169,7 +165,7 @@ public class ZhihuDailyFragment extends Fragment implements IZhihuView, ViewPage
 
     }
 
-    class ZhihuViewPagerAdapter extends PagerAdapter {
+    private class ZhihuViewPagerAdapter extends PagerAdapter {
         @Override
         public int getCount() {
             return mTop_stories != null ? mTop_stories.size() : 0;
@@ -184,37 +180,30 @@ public class ZhihuDailyFragment extends Fragment implements IZhihuView, ViewPage
         public Object instantiateItem(ViewGroup container, final int position) {
             View view = ivList.get(position % mTop_stories.size());
             view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    final String url = ApiConfig.ZhihuDialyNewUrl + mTop_stories.get(position).getId();
+                    if (NetUtils.isConnected(App.getContext())) {
+                        if (!TextUtils.isEmpty(getCache(App.getContext(), url))) {
+                            Utils.startZhihuWebAcitivty(mContext, getCache(mContext, url));
+                        } else {
+                            OkHttpUtils.get(url)
+                                    .tag(this)
+                                    .cacheKey(url)
+                                    .cacheMode(CacheMode.REQUEST_FAILED_READ_CACHE)
+                                    .execute(new StringCallback() {
                                         @Override
-                                        public void onClick(View v) {
-                                            final String url = ApiConfig.ZhihuDialyNewUrl + mStories.get(position).getId();
-                                            if (NetUtils.isConnected(App.getContext())) {
-                                                if (!TextUtils.isEmpty(getCache(App.getContext(), url))) {
-                                                    s = CacheUtils.getCache(App.getContext(), url);
-                                                } else {
-                                                    OkHttpUtils.get(url)
-                                                            .tag(this)
-                                                            .cacheKey(url)
-                                                            .cacheMode(CacheMode.REQUEST_FAILED_READ_CACHE)
-                                                            .execute(new StringCallback() {
-                                                                @Override
-                                                                public void onResponse(boolean isFromCache, String s, Request request, @Nullable Response response) {
-                                                                    ZhihuDailyFragment.s = s;
-                                                                    CacheUtils.setCache(App.getContext(), url, s);  //设置缓存
-                                                                }
-                                                            });
-                                                }
-                                                Gson gson = new Gson();
-                                                ZhihuStoryModel z = gson.fromJson(s, ZhihuStoryModel.class);
-                                                Intent intent = new Intent(getActivity(), WebViewActivity.class);
-                                                intent.putExtra(WebViewActivity.zhihuURL, z.getBody());
-                                                startActivity(intent);
-                                            } else {
-                                                Toast.makeText(getActivity(), getString(R.string.check_networkd), Toast.LENGTH_SHORT).show();
-                                            }
+                                        public void onResponse(boolean isFromCache, String s, Request request, @Nullable Response response) {
+                                            CacheUtils.setCache(App.getContext(), url, s);  //设置缓存
+                                            Utils.startZhihuWebAcitivty(mContext, s);
                                         }
-                                    }
-
-            );
+                                    });
+                        }
+                    } else {
+                        Toast.makeText(getActivity(), getString(R.string.check_networkd), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
             container.addView(view);
             return view;
         }

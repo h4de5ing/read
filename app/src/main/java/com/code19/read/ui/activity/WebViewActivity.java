@@ -26,6 +26,7 @@ public class WebViewActivity extends AppCompatActivity {
         settings.setBuiltInZoomControls(true);
         settings.setDomStorageEnabled(true);
         settings.setDatabaseEnabled(true);
+        settings.setDisplayZoomControls(false);
         settings.setAppCachePath(getCacheDir().getAbsolutePath() + "/webViewCache");
         settings.setAppCacheEnabled(true);
         settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);

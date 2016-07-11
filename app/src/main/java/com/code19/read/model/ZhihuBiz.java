@@ -17,13 +17,11 @@ import com.lzy.okhttputils.callback.StringCallback;
 import okhttp3.Request;
 import okhttp3.Response;
 
-import static com.code19.library.CacheUtils.getCache;
 
 /**
  * Create by h4de5ing 2016/5/18 018
  */
 public class ZhihuBiz implements IZhihuBiz {
-    private static String s = null;
 
     @Override
     public void getData(final String url, final OnZhihuLoadListener onZhihuLoadListener) {
@@ -31,25 +29,24 @@ public class ZhihuBiz implements IZhihuBiz {
             @Override
             public void run() {
                 if (NetUtils.isConnected(App.getContext())) {
-                    if (!TextUtils.isEmpty(getCache(App.getContext(), url))) {
-                        s = CacheUtils.getCache(App.getContext(), url);
+                    if (!TextUtils.isEmpty(CacheUtils.getCache(App.getContext(), url))) {
+                        String sl = CacheUtils.getCache(App.getContext(), url);
+                        Gson gson = new Gson();
+                        onZhihuLoadListener.loadSuccess(gson.fromJson(sl, ZhihuModel.class));
                     } else {
                         OkHttpUtils.get(url)
                                 .tag(this)
                                 .cacheKey(url)
                                 .cacheMode(CacheMode.REQUEST_FAILED_READ_CACHE)
                                 .execute(new StringCallback() {
-
                                     @Override
                                     public void onResponse(boolean isFromCache, String s, Request request, @Nullable Response response) {
-                                        ZhihuBiz.s = s;
                                         CacheUtils.setCache(App.getContext(), url, s);  //设置缓存
+                                        Gson gson = new Gson();
+                                        onZhihuLoadListener.loadSuccess(gson.fromJson(s, ZhihuModel.class));
                                     }
                                 });
                     }
-                    Gson gson = new Gson();
-                    ZhihuModel z = gson.fromJson(s, ZhihuModel.class);
-                    onZhihuLoadListener.loadSuccess(z);
                 } else {
                     onZhihuLoadListener.loadFailed(Utils.getString(R.string.check_networkd));
                 }

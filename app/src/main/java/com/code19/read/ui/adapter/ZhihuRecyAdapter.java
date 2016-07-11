@@ -1,7 +1,6 @@
 package com.code19.read.ui.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -13,14 +12,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.code19.library.CacheUtils;
-import com.code19.library.L;
 import com.code19.library.NetUtils;
 import com.code19.read.App;
 import com.code19.read.R;
 import com.code19.read.domain.ZhihuModel;
-import com.code19.read.domain.ZhihuStoryModel;
-import com.code19.read.ui.activity.WebViewActivity;
-import com.google.gson.Gson;
+import com.code19.read.util.Utils;
 import com.lzy.okhttputils.OkHttpUtils;
 import com.lzy.okhttputils.cache.CacheMode;
 import com.lzy.okhttputils.callback.StringCallback;
@@ -40,7 +36,6 @@ public class ZhihuRecyAdapter extends RecyclerView.Adapter<ZhihuRecyAdapter.Zhih
     private LayoutInflater mLayoutInflater;
     private List<ZhihuModel.StoriesEntity> mStories;
     private Context mContext;
-    private static String s = null;
 
     public ZhihuRecyAdapter(Context context, List<ZhihuModel.StoriesEntity> stories) {
         this.mLayoutInflater = LayoutInflater.from(context);
@@ -58,9 +53,9 @@ public class ZhihuRecyAdapter extends RecyclerView.Adapter<ZhihuRecyAdapter.Zhih
         holder.tv.setText(mStories.get(position).getTitle());
         holder.iv.setImageResource(R.mipmap.ic_launcher);
         String s = mStories.get(position).getImages().get(0);
-        L.i(s);
-        //PicassoUtils.loadImageWithCrop(mContext,s,holder.iv);
-        //PicassoUtils.loadImageWithHolder(mContext, s, R.mipmap.ic_launcher, holder.iv);
+        //L.i(s);
+        //PicassoUtils.loadImageWithCrop(mContext,sString,holder.iv);
+        //PicassoUtils.loadImageWithHolder(mContext, sString, R.mipmap.ic_launcher, holder.iv);
     }
 
 
@@ -82,8 +77,8 @@ public class ZhihuRecyAdapter extends RecyclerView.Adapter<ZhihuRecyAdapter.Zhih
                 public void onClick(View v) {
                     final String url = ZhihuDialyNewUrl + mStories.get(getAdapterPosition()).getId();
                     if (NetUtils.isConnected(App.getContext())) {
-                        if (!TextUtils.isEmpty(getCache(App.getContext(), url))) {
-                            s = CacheUtils.getCache(App.getContext(), url);
+                        if (!TextUtils.isEmpty(getCache(mContext, url))) {
+                            Utils.startZhihuWebAcitivty(mContext, getCache(mContext, url));
                         } else {
                             OkHttpUtils.get(url)
                                     .tag(this)
@@ -92,20 +87,14 @@ public class ZhihuRecyAdapter extends RecyclerView.Adapter<ZhihuRecyAdapter.Zhih
                                     .execute(new StringCallback() {
                                         @Override
                                         public void onResponse(boolean isFromCache, String s, Request request, @Nullable Response response) {
-                                            ZhihuRecyAdapter.s = s;
                                             CacheUtils.setCache(App.getContext(), url, s);  //设置缓存
+                                            Utils.startZhihuWebAcitivty(mContext, s);
                                         }
                                     });
                         }
-                        Gson gson = new Gson();
-                        ZhihuStoryModel z = gson.fromJson(s, ZhihuStoryModel.class);
-                        Intent intent = new Intent(mContext, WebViewActivity.class);
-                        intent.putExtra(WebViewActivity.zhihuURL, z.getBody());
-                        mContext.startActivity(intent);
                     } else {
                         Toast.makeText(mContext, mContext.getString(R.string.check_networkd), Toast.LENGTH_SHORT).show();
                     }
-
                 }
             });
         }
