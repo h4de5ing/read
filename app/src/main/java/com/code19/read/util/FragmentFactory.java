@@ -4,8 +4,8 @@ import android.support.v4.app.Fragment;
 import android.util.SparseArray;
 
 import com.code19.read.ui.fragment.AboutFragment;
-import com.code19.read.ui.fragment.MeinvFragment;
 import com.code19.read.ui.fragment.NewsFragment;
+import com.code19.read.ui.fragment.ToolsFragment;
 import com.code19.read.ui.fragment.ZhihuDailyFragment;
 
 /**
@@ -24,7 +24,7 @@ public class FragmentFactory {
                 fragment = new NewsFragment();
                 break;
             case 1:
-                fragment = new MeinvFragment();
+                fragment = new ToolsFragment();
                 break;
             case 2:
                 fragment = new ZhihuDailyFragment();

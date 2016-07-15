@@ -1,7 +1,6 @@
 package com.code19.read.ui.fragment;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -29,13 +28,13 @@ public class ToolsFragment extends Fragment implements IAppView {
     private List<AppModel> mData;
     private AppRecyAdapter mRecyAdapter;
     private RecyclerView mTools_list;
-    private Context c;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initProgress(); //初始化加载进度条
         mAppLoadPresenter = new AppLoadPresenter(this);
+        mAppLoadPresenter.getData();//异步加载数据
     }
 
     private void initProgress() {
@@ -57,7 +56,6 @@ public class ToolsFragment extends Fragment implements IAppView {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        c = getActivity();
         View view = View.inflate(getActivity(), R.layout.activity_appmanager, null);
         mTools_list = (RecyclerView) view.findViewById(R.id.recy_tools_list);
         mTools_list.setLayoutManager(new GridLayoutManager(getActivity(), 2));

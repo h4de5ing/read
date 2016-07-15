@@ -7,8 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.code19.library.FileUtils;
 import com.code19.read.R;
 import com.code19.read.domain.AppModel;
 
@@ -61,7 +61,7 @@ public class AppRecyAdapter extends RecyclerView.Adapter<AppRecyAdapter.ToolsVie
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    FileUtils.shareFile(mContext, "分享文件", mDatas.get(getAdapterPosition()).getAppApk());
+                    Toast.makeText(mContext, "启动" + mDatas.get(getAdapterPosition()).getAppName(), Toast.LENGTH_SHORT).show();
                 }
             });
         }

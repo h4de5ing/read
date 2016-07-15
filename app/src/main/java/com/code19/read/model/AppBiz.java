@@ -35,6 +35,7 @@ public class AppBiz implements IAppBiz {
             appModel.setAppIcon(appIcon);
             appModel.setAppDate(appDate);
             appModel.setAppSize(appSize);
+            appModel.setAppPack(info.packageName);
             appModel.setAppApk(AppUtils.getAppApk(context, info.packageName));
             if (!TextUtils.isEmpty(appName) && !TextUtils.isEmpty(appDate) && !TextUtils.isEmpty(appSize)) {
                 appDatas.add(appModel);

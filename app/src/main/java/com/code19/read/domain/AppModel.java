@@ -12,6 +12,16 @@ public class AppModel {
     private String appDate;
     private String appApk;
 
+    public String getAppPack() {
+        return appPack;
+    }
+
+    public void setAppPack(String appPack) {
+        this.appPack = appPack;
+    }
+
+    private String appPack;
+
     public Drawable getAppIcon() {
         return icon;
     }
