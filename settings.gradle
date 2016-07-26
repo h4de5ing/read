@@ -1,1 +1,1 @@
-include ':app',':viewpagerdemo',':materialdemo'
+include ':app', ':kanzhihu'
