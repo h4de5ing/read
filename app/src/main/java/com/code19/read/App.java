@@ -2,7 +2,9 @@ package com.code19.read;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 
+import com.code19.read.util.Utils;
 import com.lzy.okhttputils.OkHttpUtils;
 
 /**
@@ -16,6 +18,7 @@ public class App extends Application {
         super.onCreate();
         mContext = this;
         OkHttpUtils.init(this);
+        Thread.setDefaultUncaughtExceptionHandler(new MyUnCaughtExceptionHandler());
     }
 
     /**
@@ -24,5 +27,16 @@ public class App extends Application {
     public static Context getContext() {
         return mContext;
     }
-
+    private class MyUnCaughtExceptionHandler implements Thread.UncaughtExceptionHandler {
+        @Override
+        public void uncaughtException(Thread thread, Throwable throwable) {
+            throwable.printStackTrace();
+            Utils.crash2File(App.this, throwable.getMessage());
+            Intent intent = new Intent(App.this, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            App.this.startActivity(intent);
+            android.os.Process.killProcess(android.os.Process.myPid());
+            System.exit(1);
+        }
+    }
 }

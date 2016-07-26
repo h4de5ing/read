@@ -8,6 +8,13 @@ import com.code19.read.App;
 import com.code19.read.domain.ZhihuStoryModel;
 import com.code19.read.ui.activity.WebViewActivity;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
+
 /**
  * Created by Gh0st on 2016/6/3 003.
  */
@@ -21,5 +28,22 @@ public class Utils {
         Intent intent = new Intent(context, WebViewActivity.class);
         intent.putExtra(WebViewActivity.zhihuURL, z.getBody());
         context.startActivity(intent);
+    }
+    public static void crash2File(Context context, String msg) {
+        String absolutePath = context.getExternalCacheDir().getAbsolutePath();
+        File file = new File(absolutePath+"/log_" + System.currentTimeMillis() + ".log");
+        FileOutputStream trace = null;
+        try {
+            trace = new FileOutputStream(file, true);
+            OutputStreamWriter writer = new OutputStreamWriter(trace, "utf-8");
+            writer.write(msg);
+            writer.flush();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
