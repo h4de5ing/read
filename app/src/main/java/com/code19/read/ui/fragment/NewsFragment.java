@@ -16,7 +16,7 @@ import android.widget.Toast;
 import com.code19.read.ApiConfig;
 import com.code19.read.R;
 import com.code19.read.domain.NewModel;
-import com.code19.read.preserter.NewsLoadPresenter;
+import com.code19.read.presenter.NewsLoadPresenter;
 import com.code19.read.ui.activity.WebViewActivity;
 import com.code19.read.ui.adapter.NewsListAdapter;
 import com.code19.read.view.INewsView;

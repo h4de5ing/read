@@ -13,7 +13,7 @@ import android.view.Window;
 
 import com.code19.read.R;
 import com.code19.read.domain.AppModel;
-import com.code19.read.preserter.AppLoadPresenter;
+import com.code19.read.presenter.AppLoadPresenter;
 import com.code19.read.ui.adapter.AppRecyAdapter;
 import com.code19.read.view.IAppView;
 

@@ -11,7 +11,7 @@ import android.widget.Toast;
 import com.code19.read.ApiConfig;
 import com.code19.read.R;
 import com.code19.read.domain.BiliBiliModel;
-import com.code19.read.preserter.BiliBiliLoadPresenter;
+import com.code19.read.presenter.BiliBiliLoadPresenter;
 import com.code19.read.view.IBibiBiliView;
 
 import java.util.List;

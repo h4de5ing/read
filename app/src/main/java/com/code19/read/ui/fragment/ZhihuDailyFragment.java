@@ -24,7 +24,7 @@ import com.code19.read.ApiConfig;
 import com.code19.read.App;
 import com.code19.read.R;
 import com.code19.read.domain.ZhihuModel;
-import com.code19.read.preserter.ZhihuLoadPresenter;
+import com.code19.read.presenter.ZhihuLoadPresenter;
 import com.code19.read.ui.adapter.ZhihuRecyAdapter;
 import com.code19.read.util.PicassoUtils;
 import com.code19.read.util.Utils;
