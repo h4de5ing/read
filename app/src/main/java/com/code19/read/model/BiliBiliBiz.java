@@ -3,7 +3,6 @@ package com.code19.read.model;
 import android.support.annotation.Nullable;
 
 import com.code19.library.JsonUtils;
-import com.code19.library.L;
 import com.code19.library.NetUtils;
 import com.code19.read.App;
 import com.code19.read.R;
@@ -71,7 +70,7 @@ public class BiliBiliBiz implements IBiliBiliBiz {
                 while (typeKeys.hasNext()) {
                     String next = typeKeys.next();
                     if (type.getString(next).startsWith("{")) {
-                        L.i(next,type.getString(next));//日志输出
+                        //L.i(next,type.getString(next));//日志输出
                         BiliBiliModel model = JsonUtils.fromJson(type.getString(next), BiliBiliModel.class); //将item转化成Model实体
                         mModelList.add(model);//将model存入List<BiliBiliModel> mModelList; 集合中
                     }

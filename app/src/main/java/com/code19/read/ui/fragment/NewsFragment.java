@@ -61,9 +61,6 @@ public class NewsFragment extends Fragment implements INewsView {
     @Nullable
     @Override
     public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        /*if (Looper.myLooper() == Looper.getMainLooper()) {
-            Log.w("ghost", "在主线程中执行");
-        }*/
         View v = inflater.inflate(R.layout.fragment_news, null);
         ListView newsListView = (ListView) v.findViewById(R.id.listview_news);
         newsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
