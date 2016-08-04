@@ -2,6 +2,7 @@ package com.code19.kanzhihu.utils;
 
 import android.app.Activity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -11,12 +12,18 @@ import java.util.List;
 public class BaseAppManager {
     public static BaseAppManager mBaseAppManager;
     private static List<Activity> sActivityList;
+
+    public BaseAppManager() {
+        sActivityList = new ArrayList<Activity>();
+    }
+
     public static BaseAppManager getInstance() {
         if (mBaseAppManager == null) {
             mBaseAppManager = new BaseAppManager();
         }
         return mBaseAppManager;
     }
+
     public void addActivity(Activity activity) {
         sActivityList.add(activity);
     }
