@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
                         mCurrentItem = 3;
                         break;
                 }
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment, FragmentFactory.getFragment(mCurrentItem)).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment, FragmentFactory.getInstatic().getFragment(mCurrentItem)).commit();
             }
 
             @Override

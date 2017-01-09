@@ -16,8 +16,6 @@
 
 package com.code19.read.util.lruCache;
 
-import com.squareup.okhttp.internal.Util;
-
 import java.io.ByteArrayOutputStream;
 import java.io.Closeable;
 import java.io.EOFException;

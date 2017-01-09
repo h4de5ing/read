@@ -12,9 +12,17 @@ import com.code19.read.ui.fragment.ZhihuDailyFragment;
  * Created by Gh0st on 2016/4/26 026.
  */
 public class FragmentFactory {
-    private static SparseArray<Fragment> map = new SparseArray<Fragment>();
+    private static FragmentFactory mFactory = null;
 
-    public static Fragment getFragment(int position) {
+    public static FragmentFactory getInstatic() {
+        if (mFactory == null) {
+            mFactory = new FragmentFactory();
+        }
+        return mFactory;
+    }
+
+    public Fragment getFragment(int position) {
+        SparseArray<Fragment> map = new SparseArray<Fragment>();
         Fragment fragment = null;
         if (map.get(position, fragment) != null) {
             return map.get(position);
